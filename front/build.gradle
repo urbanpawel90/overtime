@@ -1,0 +1,13 @@
+apply plugin: "com.moowork.node"
+
+task buildClientDev(type: NpmTask, dependsOn: 'npmInstall') {
+  group = 'build'
+  description = 'Compile client side folder for development'
+  args = ['run', 'buildDev']
+}
+
+task buildClient(type: NpmTask, dependsOn: 'npmInstall') {
+  group = 'build'
+  description = "Compile client side folder for production"
+  args = ['run', 'build']
+}
