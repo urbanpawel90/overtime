@@ -1,0 +1,11 @@
+version: '2'
+services:
+  overtime-db:
+    image: mysql/mysql-server:5.7
+    environment:
+      MYSQL_DATABASE: overtime
+      MYSQL_USER: overtime
+      MYSQL_PASSWORD: overtime-passwd
+      MYSQL_ROOT_PASSWORD: overtime-root-passwd
+    ports:
+      - "3306:3306"

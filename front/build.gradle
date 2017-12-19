@@ -11,3 +11,8 @@ task buildClient(type: NpmTask, dependsOn: 'npmInstall') {
   description = "Compile client side folder for production"
   args = ['run', 'build']
 }
+
+task runFront(type: Exec) {
+  commandLine "cmd","/k","npm","run","start"
+  standardInput = System.in
+}

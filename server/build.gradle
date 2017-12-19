@@ -14,9 +14,19 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-data-jpa')
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-web')
+    compile 'mysql:mysql-connector-java:5.1.45'
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.security:spring-security-test')
 }
 
-bootRun.dependsOn ":front:buildClientDev"
-jar.dependsOn ":front:buildClient"
+task runLocalDb(type: Exec) {
+    commandLine "cmd", "/c", "docker-compose -f ../docker/docker-compose-local.yaml up -d"
+}
+
+task stopLocalDb(type: Exec) {
+    commandLine "cmd", "/c", "docker-compose -f ../docker/docker-compose-local.yaml down"
+}
+
+bootRun {
+    environment SPRING_PROFILES_ACTIVE: "local"
+}
