@@ -1,5 +1,6 @@
 package com.urbanpawel.overtime.overtime;
 
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -9,23 +10,31 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+@Entity
+@Table(name = "overtime")
 public final class OvertimeSummary {
-    private final BigDecimal hours;
-    private final LocalDate date;
-    private final List<Change> changes;
+    @Id
+    private LocalDate date;
+    @Column(nullable = false)
+    private BigDecimal hours;
+    @ElementCollection
+    private List<Change> changes;
 
-    public static OvertimeSummary fromChange(Change change) {
-        return new OvertimeSummary(change.amount, change.when.toLocalDate(), Collections.singletonList(change));
+    private OvertimeSummary() {
     }
 
-    OvertimeSummary(BigDecimal hours, LocalDate date) {
+    private OvertimeSummary(BigDecimal hours, LocalDate date) {
         this(hours, date, Collections.emptyList());
     }
 
-    OvertimeSummary(BigDecimal hours, LocalDate date, List<Change> changes) {
+    private OvertimeSummary(BigDecimal hours, LocalDate date, List<Change> changes) {
         this.hours = hours;
         this.date = date;
         this.changes = Collections.unmodifiableList(changes);
+    }
+
+    public static OvertimeSummary fromChange(Change change) {
+        return new OvertimeSummary(change.amount, change.when.toLocalDate(), Collections.singletonList(change));
     }
 
     public static OvertimeSummary emptySummary(LocalDate date) {
@@ -63,11 +72,15 @@ public final class OvertimeSummary {
                 .collect(Collectors.toList()));
     }
 
+    @Embeddable
     public static class Change {
-        private final BigDecimal amount;
-        private final ZonedDateTime when;
+        private BigDecimal amount;
+        private ZonedDateTime when;
 
-        public Change(BigDecimal amount, ZonedDateTime when) {
+        Change() {
+        }
+
+        Change(BigDecimal amount, ZonedDateTime when) {
             this.amount = amount;
             this.when = when;
         }

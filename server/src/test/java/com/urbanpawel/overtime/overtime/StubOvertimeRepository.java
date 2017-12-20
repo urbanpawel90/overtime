@@ -14,12 +14,7 @@ public class StubOvertimeRepository implements OvertimeRepository {
     }
 
     @Override
-    public void update(OvertimeSummary summary) {
-        entries.put(summary.getDate(), summary);
-    }
-
-    @Override
-    public void create(OvertimeSummary newSummary) {
-        entries.putIfAbsent(newSummary.getDate(), newSummary);
+    public void saveSummary(OvertimeSummary newSummary) {
+        entries.put(newSummary.getDate(), newSummary);
     }
 }

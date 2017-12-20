@@ -27,8 +27,8 @@ public class OvertimeService {
     private void save(ReportOvertimeSpecification specification) {
         repository.summaryFor(specification.date)
                 .<Consumer<OvertimeSummary.Change>>map(currentSummary ->
-                        change -> repository.update(currentSummary.apply(change)))
-                .orElse(change -> repository.create(OvertimeSummary.fromChange(change)))
+                        change -> repository.saveSummary(currentSummary.apply(change)))
+                .orElse(change -> repository.saveSummary(OvertimeSummary.fromChange(change)))
                 .accept(specification.toChange());
     }
 

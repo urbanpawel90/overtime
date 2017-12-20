@@ -4,4 +4,3 @@ spring:
     driverClassName: "com.mysql.jdbc.Driver"
     username: overtime
     password: overtime-passwd
-  jpa.hibernate.ddl-auto: create-drop
