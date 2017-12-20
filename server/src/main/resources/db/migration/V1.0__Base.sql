@@ -1,0 +1,2 @@
+create table overtime (`date` tinyblob not null, hours decimal(19,2) not null, primary key (`date`(255)));
+create table overtime_summary_changes (overtime_summary_date tinyblob not null, amount decimal(19,2), `when` tinyblob);

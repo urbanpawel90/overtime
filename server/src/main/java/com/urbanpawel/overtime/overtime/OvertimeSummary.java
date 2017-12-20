@@ -14,6 +14,9 @@ import java.util.stream.Stream;
 @Table(name = "overtime")
 public final class OvertimeSummary {
     @Id
+    @GeneratedValue
+    private Integer id;
+    @Column(nullable = false, unique = true)
     private LocalDate date;
     @Column(nullable = false)
     private BigDecimal hours;
@@ -31,6 +34,11 @@ public final class OvertimeSummary {
         this.hours = hours;
         this.date = date;
         this.changes = Collections.unmodifiableList(changes);
+    }
+
+    private OvertimeSummary(Integer id, BigDecimal hours, LocalDate date, List<Change> changes) {
+        this(hours, date, changes);
+        this.id = id;
     }
 
     public static OvertimeSummary fromChange(Change change) {
@@ -68,7 +76,7 @@ public final class OvertimeSummary {
     }
 
     public OvertimeSummary apply(Change change) {
-        return new OvertimeSummary(hours.add(change.amount), date, Stream.concat(Stream.of(change), changes.stream())
+        return new OvertimeSummary(id, hours.add(change.amount), date, Stream.concat(Stream.of(change), changes.stream())
                 .collect(Collectors.toList()));
     }
 

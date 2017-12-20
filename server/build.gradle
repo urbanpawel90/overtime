@@ -15,6 +15,8 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-security')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile 'mysql:mysql-connector-java:5.1.45'
+    compile "org.flywaydb:flyway-core:5.0.2"
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('org.springframework.security:spring-security-test')
 }
