@@ -11,5 +11,6 @@ buildscript {
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 		classpath "com.moowork.gradle:gradle-node-plugin:1.2.0"
+		classpath "net.ltgt.gradle:gradle-apt-plugin:0.13"
 	}
 }
