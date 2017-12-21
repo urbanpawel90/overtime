@@ -3,8 +3,9 @@ package com.urbanpawel.overtime.overtime;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -16,21 +17,22 @@ public final class OvertimeSummary {
     @Id
     @GeneratedValue
     private Integer id;
-    @Column(nullable = false, unique = true)
+    @Column(name = "`date`", nullable = false, unique = true)
     private LocalDate date;
     @Column(nullable = false)
     private BigDecimal hours;
     @ElementCollection
     private List<Change> changes;
 
+    @SuppressWarnings("unused")
     private OvertimeSummary() {
     }
 
-    private OvertimeSummary(BigDecimal hours, LocalDate date) {
-        this(hours, date, Collections.emptyList());
+    private OvertimeSummary(LocalDate date) {
+        this(BigDecimal.ZERO, date, Collections.emptyList());
     }
 
-    private OvertimeSummary(BigDecimal hours, LocalDate date, List<Change> changes) {
+    OvertimeSummary(BigDecimal hours, LocalDate date, List<Change> changes) {
         this.hours = hours;
         this.date = date;
         this.changes = Collections.unmodifiableList(changes);
@@ -41,12 +43,8 @@ public final class OvertimeSummary {
         this.id = id;
     }
 
-    public static OvertimeSummary fromChange(Change change) {
-        return new OvertimeSummary(change.amount, change.when.toLocalDate(), Collections.singletonList(change));
-    }
-
     public static OvertimeSummary emptySummary(LocalDate date) {
-        return new OvertimeSummary(BigDecimal.ZERO, date);
+        return new OvertimeSummary(date);
     }
 
     public BigDecimal getHours() {
@@ -59,6 +57,13 @@ public final class OvertimeSummary {
 
     public List<Change> getChanges() {
         return changes;
+    }
+
+    public OvertimeSummary apply(OvertimeSummary change) {
+        return new OvertimeSummary(id, hours.add(change.getHours()), date,
+                Stream.concat(change.changes.stream(), changes.stream())
+                        .sorted(Comparator.comparing(Change::getWhen).reversed())
+                        .collect(Collectors.toList()));
     }
 
     @Override
@@ -75,20 +80,17 @@ public final class OvertimeSummary {
         return Objects.hash(hours, date);
     }
 
-    public OvertimeSummary apply(Change change) {
-        return new OvertimeSummary(id, hours.add(change.amount), date, Stream.concat(Stream.of(change), changes.stream())
-                .collect(Collectors.toList()));
-    }
-
     @Embeddable
     public static class Change {
         private BigDecimal amount;
-        private ZonedDateTime when;
+        @Column(name = "`when`")
+        private LocalDateTime when;
 
+        @SuppressWarnings("unused")
         Change() {
         }
 
-        Change(BigDecimal amount, ZonedDateTime when) {
+        Change(BigDecimal amount, LocalDateTime when) {
             this.amount = amount;
             this.when = when;
         }
@@ -97,7 +99,7 @@ public final class OvertimeSummary {
             return amount;
         }
 
-        public ZonedDateTime getWhen() {
+        public LocalDateTime getWhen() {
             return when;
         }
     }

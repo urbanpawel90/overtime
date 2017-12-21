@@ -3,9 +3,11 @@ package com.urbanpawel.overtime.overtime;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
-public interface JpaOvertimeRepository extends OvertimeRepository, JpaRepository<OvertimeSummary, Integer> {
+@SuppressWarnings("unused")
+interface JpaOvertimeRepository extends OvertimeRepository, JpaRepository<OvertimeSummary, Integer> {
     @Override
     default void saveSummary(OvertimeSummary summary) {
         save(summary);
@@ -14,6 +16,11 @@ public interface JpaOvertimeRepository extends OvertimeRepository, JpaRepository
     @Override
     default Optional<OvertimeSummary> summaryFor(LocalDate date) {
         return Optional.ofNullable(findOneByDate(date));
+    }
+
+    @Override
+    default List<OvertimeSummary> allSummaries() {
+        return findAll();
     }
 
     OvertimeSummary findOneByDate(LocalDate date);

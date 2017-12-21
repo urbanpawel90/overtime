@@ -7,8 +7,9 @@ import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.util.function.Consumer;
+import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.List;
 
 @Service
 public class OvertimeService {
@@ -25,16 +26,20 @@ public class OvertimeService {
 
     @Transactional
     private void save(ReportOvertimeSpecification specification) {
-        repository.summaryFor(specification.date)
-                .<Consumer<OvertimeSummary.Change>>map(currentSummary ->
-                        change -> repository.saveSummary(currentSummary.apply(change)))
-                .orElse(change -> repository.saveSummary(OvertimeSummary.fromChange(change)))
-                .accept(specification.toChange());
+        OvertimeSummary specSummary = specification.toSummary();
+        repository.saveSummary(repository.summaryFor(specification.date)
+                .map(found -> found.apply(specSummary))
+                .orElse(specSummary)
+        );
     }
 
     public OvertimeSummary summaryFor(LocalDate date) {
         return repository.summaryFor(date)
                 .orElse(OvertimeSummary.emptySummary(date));
+    }
+
+    public List<OvertimeSummary> sumarries() {
+        return repository.allSummaries();
     }
 
     public class ReportOvertimeSpecification {
@@ -61,8 +66,9 @@ public class OvertimeService {
             OvertimeService.this.save(this);
         }
 
-        private OvertimeSummary.Change toChange() {
-            return new OvertimeSummary.Change(hours, ZonedDateTime.now());
+        private OvertimeSummary toSummary() {
+            return new OvertimeSummary(hours, date,
+                    Collections.singletonList(new OvertimeSummary.Change(hours, LocalDateTime.now())));
         }
     }
 }

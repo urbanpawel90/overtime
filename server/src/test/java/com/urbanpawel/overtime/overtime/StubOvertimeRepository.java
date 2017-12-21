@@ -1,9 +1,7 @@
 package com.urbanpawel.overtime.overtime;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class StubOvertimeRepository implements OvertimeRepository {
     private final Map<LocalDate, OvertimeSummary> entries = new HashMap<>();
@@ -16,5 +14,10 @@ public class StubOvertimeRepository implements OvertimeRepository {
     @Override
     public void saveSummary(OvertimeSummary newSummary) {
         entries.put(newSummary.getDate(), newSummary);
+    }
+
+    @Override
+    public List<OvertimeSummary> allSummaries() {
+        return Collections.unmodifiableList(new ArrayList<>(entries.values()));
     }
 }
