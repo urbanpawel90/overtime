@@ -12,4 +12,12 @@ export class OvertimeService {
   getOvertimeTable(): Observable<Overtime[]> {
     return this.http.get<Overtime[]>(OvertimeService.overtimeUrl);
   }
+
+  reportOvertime(overtime: Overtime): Observable<any> {
+    return this.http.post<any>(OvertimeService.overtimeUrl, JSON.stringify(overtime), {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  }
 }
