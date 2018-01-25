@@ -4,17 +4,22 @@ import { NgModule } from '@angular/core';
 import { OvertimeService } from './overtime.service';
 import { OvertimeListComponent } from './overtime-list/overtime-list.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AppRoutingModule } from './app-routing.module';
+import { RouterModule } from '@angular/router';
+import { AppComponent } from './app.component';
 
 
 @NgModule({
   declarations: [
+    AppComponent,
     OvertimeListComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule
   ],
   providers: [OvertimeService],
-  bootstrap: [OvertimeListComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
