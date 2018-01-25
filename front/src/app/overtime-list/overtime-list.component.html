@@ -1,0 +1,45 @@
+<section class="section">
+  <nav class="level">
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">General overtime</p>
+        <p class="title">3,456</p>
+      </div>
+    </div>
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">This week overtime</p>
+        <p class="title">123</p>
+      </div>
+    </div>
+    <div class="level-item has-text-centered">
+      <div>
+        <p class="heading">This month overime</p>
+        <p class="title">456K</p>
+      </div>
+    </div>
+    <p class="level-item">
+      <a class="button is-success">Report</a>
+    </p>
+  </nav>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="content">
+      <h2>Overtime list</h2>
+      <a (click)="loadOvertimes()">Reload</a>
+    </div>
+    <table class="table is-hoverable">
+      <thead>
+        <th>Date</th>
+        <th>Amount</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let overtime of overtimes">
+          <td>{{overtime.date}}</td>
+          <td>{{overtime.hours}}h</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
