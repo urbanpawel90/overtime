@@ -30,7 +30,7 @@ public class OvertimeUseCasesTest {
 
     @Test
     public void test_addedEntriesAreSummed() {
-        overtimeService.forDate(LocalDate.now()).hours(2).halfHour().save();
+        overtimeService.forDate(LocalDate.now()).hours(new BigDecimal("2.5")).save();
         overtimeService.forDate(LocalDate.now()).hours(1).save();
 
         assertEquals(BigDecimal.valueOf(3.5), overtimeService.summaryFor(LocalDate.now()).getHours());
@@ -39,7 +39,7 @@ public class OvertimeUseCasesTest {
     @Test
     public void test_changeLogContainsAllOperations() {
         overtimeService.forDate(LocalDate.now()).hours(1).save();
-        overtimeService.forDate(LocalDate.now()).halfHour().save();
+        overtimeService.forDate(LocalDate.now()).hours(new BigDecimal("0.5")).save();
 
         OvertimeSummary summary = overtimeService.summaryFor(LocalDate.now());
         assertEquals(2, summary.getChanges().size());

@@ -52,11 +52,11 @@ public class OvertimeService {
         }
 
         public ReportOvertimeSpecification hours(int hours) {
-            return new ReportOvertimeSpecification(date, this.hours.add(BigDecimal.valueOf(hours)));
+            return hours(BigDecimal.valueOf(hours));
         }
 
-        public ReportOvertimeSpecification halfHour() {
-            return new ReportOvertimeSpecification(date, this.hours.add(BigDecimal.valueOf(0.5)));
+        public ReportOvertimeSpecification hours(BigDecimal hours) {
+            return new ReportOvertimeSpecification(date, this.hours.add(hours));
         }
 
         public void save() {
