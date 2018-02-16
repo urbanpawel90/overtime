@@ -12,7 +12,7 @@ export class OvertimeReportComponent implements OnInit {
   overtime: Overtime;
 
   constructor(private location: Location, private overtimeService: OvertimeService) {
-    this.overtime = new Overtime('11.01.2018', 1);
+    this.overtime = new Overtime(new Date(Date.now()), 1);
   }
 
   ngOnInit() {

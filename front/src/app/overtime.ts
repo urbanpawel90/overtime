@@ -1,4 +1,4 @@
 
 export class Overtime {
-    constructor(private date: string, private hours: number) { }
+    constructor(private date: Date, private hours: number) { }
 }

@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { OvertimeReportComponent } from './overtime-report/overtime-report.component';
 import { FormsModule } from '@angular/forms';
+import { DateValueAccessorModule } from 'angular-date-value-accessor';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FormsModule } from '@angular/forms';
     FormsModule,
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    DateValueAccessorModule
   ],
   providers: [OvertimeService],
   bootstrap: [AppComponent]
