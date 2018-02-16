@@ -9,7 +9,7 @@ import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 		basePackageClasses = {OvertimeApplication.class, Jsr310JpaConverters.class}
 )
 @SpringBootApplication
-class OvertimeApplication {
+public class OvertimeApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(OvertimeApplication.class, args);
 	}
