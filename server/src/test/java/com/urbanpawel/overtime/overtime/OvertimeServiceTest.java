@@ -1,8 +1,5 @@
-package com.urbanpawel.overtime;
+package com.urbanpawel.overtime.overtime;
 
-import com.urbanpawel.overtime.overtime.OvertimeService;
-import com.urbanpawel.overtime.overtime.OvertimeSummary;
-import com.urbanpawel.overtime.overtime.StubOvertimeRepository;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,7 +14,7 @@ import java.time.LocalDate;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(MockitoJUnitRunner.class)
-public class OvertimeUseCasesTest {
+public class OvertimeServiceTest {
     @Rule
     public ExpectedException exceptionsAssert = ExpectedException.none();
 
