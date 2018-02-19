@@ -39,3 +39,7 @@ task stopLocalDb(type: Exec) {
 bootRun {
     environment SPRING_PROFILES_ACTIVE: "local"
 }
+
+sourceSets {
+    main.java.srcDir file("${buildDir}/generated/source/apt/main")
+}
