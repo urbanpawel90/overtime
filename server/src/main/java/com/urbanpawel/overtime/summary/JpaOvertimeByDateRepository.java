@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.Set;
 
-public interface JpaOvertimeByDateRepository extends OvertimeByDateRepository, JpaRepository<OvertimeSummary, Integer> {
+interface JpaOvertimeByDateRepository extends OvertimeByDateRepository, JpaRepository<OvertimeSummary, Integer> {
     @Override
     @Query("SELECT new com.urbanpawel.overtime.summary.SummaryItem(os.date, os.hours) FROM OvertimeSummary os")
     Set<SummaryItem> getOvertimesGroupedByDate();

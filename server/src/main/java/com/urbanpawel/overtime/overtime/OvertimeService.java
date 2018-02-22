@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Service
-public class OvertimeService {
+class OvertimeService {
     private final OvertimeRepository repository;
 
     @Autowired
@@ -38,7 +38,7 @@ public class OvertimeService {
                 .orElse(OvertimeSummary.emptySummary(date));
     }
 
-    public List<OvertimeSummary> sumarries() {
+    public List<OvertimeSummary> summaries() {
         return repository.allSummaries();
     }
 

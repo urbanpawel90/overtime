@@ -10,7 +10,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Collections;
 import java.util.Set;
@@ -25,7 +24,7 @@ public class SummaryServiceTest {
     private SummaryService summaryService;
     @Mock
     private OvertimeByDateRepository mockOvertimeRepository;
-    private DateTimeService dateTimeService = FakeDateTimeService.fake2018Valentines2pm();
+    private final DateTimeService dateTimeService = FakeDateTimeService.fake2018Valentines2pm();
 
     @Before
     public void setUp() {
@@ -64,7 +63,7 @@ public class SummaryServiceTest {
         ).collect(Collectors.toSet()));
 
         assertEquals("SummaryDto(3,3,3)", summaryService.countSummary(),
-                SummaryDto.create(BigDecimal.valueOf(3),BigDecimal.valueOf(3), BigDecimal.valueOf(3)));
+                SummaryDto.create(BigDecimal.valueOf(3), BigDecimal.valueOf(3), BigDecimal.valueOf(3)));
     }
 
     @Test
@@ -76,6 +75,6 @@ public class SummaryServiceTest {
         ).collect(Collectors.toSet()));
 
         assertEquals("SummaryDto(3,0,3)", summaryService.countSummary(),
-                SummaryDto.create(BigDecimal.valueOf(3),BigDecimal.ZERO, BigDecimal.valueOf(3)));
+                SummaryDto.create(BigDecimal.valueOf(3), BigDecimal.ZERO, BigDecimal.valueOf(3)));
     }
 }

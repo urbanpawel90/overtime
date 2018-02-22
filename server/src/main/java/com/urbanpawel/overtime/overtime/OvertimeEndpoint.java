@@ -1,7 +1,5 @@
-package com.urbanpawel.overtime.overtime.endpoint;
+package com.urbanpawel.overtime.overtime;
 
-import com.urbanpawel.overtime.overtime.OvertimeService;
-import com.urbanpawel.overtime.overtime.OvertimeSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +24,6 @@ class OvertimeEndpoint {
 
     @GetMapping
     public List<OvertimeSummary> listOvertimes() {
-        return overtimeService.sumarries();
+        return overtimeService.summaries();
     }
 }

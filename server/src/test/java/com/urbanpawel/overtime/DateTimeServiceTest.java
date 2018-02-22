@@ -3,14 +3,13 @@ package com.urbanpawel.overtime;
 import org.junit.Test;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class DateTimeServiceTest {
-    private DateTimeService dateTimeService = FakeDateTimeService.fake2018Valentines2pm();
+    private final DateTimeService dateTimeService = FakeDateTimeService.fake2018Valentines2pm();
 
     @Test
     public void test_14thFebAnd16thFebOf2018_areInTheSameWeek() {

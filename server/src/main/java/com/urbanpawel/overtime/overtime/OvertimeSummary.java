@@ -99,7 +99,7 @@ public final class OvertimeSummary {
             return amount;
         }
 
-        public LocalDateTime getWhen() {
+        LocalDateTime getWhen() {
             return when;
         }
     }

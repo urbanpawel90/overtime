@@ -1,4 +1,4 @@
-package com.urbanpawel.overtime.overtime.endpoint;
+package com.urbanpawel.overtime.overtime;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
