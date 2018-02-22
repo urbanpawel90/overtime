@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { OvertimeService } from '../overtime.service';
 import { Overtime } from '../overtime';
 import { overrideComponentView } from '@angular/core/src/view/entrypoint';
+import { Summary } from '../summary';
+import { Observable } from 'rxjs/Observable';
+import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Component({
   selector: 'overtime-list',
@@ -10,6 +13,7 @@ import { overrideComponentView } from '@angular/core/src/view/entrypoint';
 })
 export class OvertimeListComponent implements OnInit {
   overtimes: Overtime[];
+  summary: Summary;
 
   constructor(private overtimeService: OvertimeService) { }
 
@@ -18,9 +22,10 @@ export class OvertimeListComponent implements OnInit {
   }
 
   loadOvertimes() {
-    this.overtimeService.getOvertimeTable().subscribe(overtimes => {
-      this.overtimes = overtimes;
-    });
+    combineLatest(this.overtimeService.getOvertimeTable(), this.overtimeService.getOvertimeSummary(), (table, summary) => {return {table, summary}})
+      .subscribe(combined => {
+        this.overtimes = combined.table;
+        this.summary = combined.summary;
+      });
   }
-
 }

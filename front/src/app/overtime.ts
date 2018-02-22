@@ -1,4 +1,3 @@
-
 export class Overtime {
-    constructor(private date: Date, private hours: number) { }
+    constructor(public date: Date, public hours: number) { }
 }
