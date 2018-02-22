@@ -46,7 +46,7 @@ public class OvertimeServiceTest {
     @Test
     public void test_reportingZeroHoursThrowsInvalidParameterException() {
         exceptionsAssert.expect(InvalidParameterException.class);
-        exceptionsAssert.expectMessage("Can't report zero or negative hours!");
+        exceptionsAssert.expectMessage("Can't report zero hours!");
 
         overtimeService.forDate(LocalDate.now()).save();
     }
