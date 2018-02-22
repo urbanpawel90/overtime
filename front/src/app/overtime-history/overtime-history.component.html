@@ -1,0 +1,22 @@
+<div class="box">
+  <article class="media">
+    <div class="media-content">
+      <div class="content">
+        <h4 class="inline">History for {{overtime.date}}
+          <a class="button is-pulled-right" (click)="dismissDetails()">
+            <span class="icon is-small">
+              <i class="fas fa-times"></i>
+            </span>
+          </a>
+        </h4>
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let change of overtime.changes">
+              <td>{{change.amount}}h</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </article>
+</div>

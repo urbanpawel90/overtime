@@ -44,37 +44,18 @@
             <th>Amount</th>
           </thead>
           <tbody>
-            <tr *ngFor="let overtime of overtimes" (click)="onItemClick(overtime)">
+            <tr *ngFor="let overtime of overtimes" (click)="onItemClick(overtime)" [ngClass]="{'is-selected': overtime == selectedOvertime}">
               <td>{{overtime.date}}</td>
               <td>{{overtime.hours}}h</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="column" *ngIf="selectedOvertime != null">
-        <div class="box">
-          <article class="media">
-            <div class="media-content">
-              <div class="content">
-                <h4 class="inline">History for {{selectedOvertime.date}}
-                  <a class="button is-pulled-right" (click)="dismissDetails()">
-                    <span>Close</span>
-                    <span class="icon is-small">
-                      <i class="fas fa-times"></i>
-                    </span>
-                  </a>
-                </h4>
-                <table class="table">
-                  <tbody>
-                    <tr *ngFor="let change of selectedOvertime.changes">
-                      <td>{{change.amount}}h</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </article>
-        </div>
+      <div class="column">
+        <app-overtime-history 
+        [overtime]="selectedOvertime" 
+        [onClose]="dismissDetails()"
+        *ngIf="selectedOvertime != null"></app-overtime-history>
       </div>
     </div>
   </div>

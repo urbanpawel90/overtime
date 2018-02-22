@@ -10,12 +10,14 @@ import { AppComponent } from './app.component';
 import { OvertimeReportComponent } from './overtime-report/overtime-report.component';
 import { FormsModule } from '@angular/forms';
 import { DateValueAccessorModule } from 'angular-date-value-accessor';
+import { OvertimeHistoryComponent } from './overtime-history/overtime-history.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     OvertimeListComponent,
-    OvertimeReportComponent
+    OvertimeReportComponent,
+    OvertimeHistoryComponent
   ],
   imports: [
     FormsModule,

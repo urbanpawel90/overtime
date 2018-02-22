@@ -8,14 +8,12 @@ import { OvertimeService } from '../overtime.service';
   templateUrl: './overtime-report.component.html',
   styleUrls: ['./overtime-report.component.css']
 })
-export class OvertimeReportComponent implements OnInit {
+export class OvertimeReportComponent {
   overtime: Overtime;
 
   constructor(private location: Location, private overtimeService: OvertimeService) {
     this.overtime = new Overtime(new Date(Date.now()), 1);
   }
-
-  ngOnInit() { }
 
   onSave() {
     this.reportOvertime(this.overtime);
