@@ -14,6 +14,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 export class OvertimeListComponent implements OnInit {
   overtimes: Overtime[];
   summary: Summary;
+  selectedOvertime: Overtime;
 
   constructor(private overtimeService: OvertimeService) { }
 
@@ -22,10 +23,19 @@ export class OvertimeListComponent implements OnInit {
   }
 
   loadOvertimes() {
-    combineLatest(this.overtimeService.getOvertimeTable(), this.overtimeService.getOvertimeSummary(), (table, summary) => {return {table, summary}})
+    combineLatest(this.overtimeService.getOvertimeTable(), this.overtimeService.getOvertimeSummary(), (table, summary) => { return { table, summary } })
       .subscribe(combined => {
         this.overtimes = combined.table;
         this.summary = combined.summary;
+        this.selectedOvertime = null;
       });
+  }
+
+  onItemClick(overtime: Overtime) {
+    this.selectedOvertime = overtime;
+  }
+
+  dismissDetails() {
+    this.selectedOvertime = null;
   }
 }

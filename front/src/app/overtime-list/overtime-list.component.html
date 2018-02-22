@@ -1,45 +1,81 @@
 <section class="section">
-  <nav class="level">
-    <div class="level-item has-text-centered">
-      <div>
-        <p class="heading">General overtime</p>
-        <p class="title">{{summary.total}}</p>
+  <div class="container">
+    <div class="columns">
+      <div class="column is-10">
+        <nav class="level">
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">General overtime</p>
+              <p class="title">{{summary.total}}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">This week overtime</p>
+              <p class="title">{{summary.week}}</p>
+            </div>
+          </div>
+          <div class="level-item has-text-centered">
+            <div>
+              <p class="heading">This month overime</p>
+              <p class="title">{{summary.month}}</p>
+            </div>
+          </div>
+        </nav>
+      </div>
+      <div class="column">
+        <a routerLink="/report" class="button is-success is-pulled-right">Report</a>
       </div>
     </div>
-    <div class="level-item has-text-centered">
-      <div>
-        <p class="heading">This week overtime</p>
-        <p class="title">{{summary.week}}</p>
-      </div>
-    </div>
-    <div class="level-item has-text-centered">
-      <div>
-        <p class="heading">This month overime</p>
-        <p class="title">{{summary.month}}</p>
-      </div>
-    </div>
-    <p class="level-item">
-      <a routerLink="/report" class="button is-success">Report</a>
-    </p>
-  </nav>
+  </div>
 </section>
 <section class="section">
   <div class="container">
     <div class="content">
-      <h2>Overtime list</h2>
-      <a (click)="loadOvertimes()">Reload</a>
+      <h2>Overtime list
+        <a class="button is-pulled-right" (click)="loadOvertimes()">Reload</a>
+      </h2>
     </div>
-    <table class="table is-hoverable">
-      <thead>
-        <th>Date</th>
-        <th>Amount</th>
-      </thead>
-      <tbody>
-        <tr *ngFor="let overtime of overtimes">
-          <td>{{overtime.date}}</td>
-          <td>{{overtime.hours}}h</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="columns">
+      <div class="column is-half content">
+        <table class="table is-hoverable">
+          <thead>
+            <th>Date</th>
+            <th>Amount</th>
+          </thead>
+          <tbody>
+            <tr *ngFor="let overtime of overtimes" (click)="onItemClick(overtime)">
+              <td>{{overtime.date}}</td>
+              <td>{{overtime.hours}}h</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="column" *ngIf="selectedOvertime != null">
+        <div class="box">
+          <article class="media">
+            <div class="media-content">
+              <div class="content">
+                <h4 class="inline">History for {{selectedOvertime.date}}
+                  <a class="button is-pulled-right" (click)="dismissDetails()">
+                    <span>Close</span>
+                    <span class="icon is-small">
+                      <i class="fas fa-times"></i>
+                    </span>
+                  </a>
+                </h4>
+                <table class="table">
+                  <tbody>
+                    <tr *ngFor="let change of selectedOvertime.changes">
+                      <td>{{change.amount}}h</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
