@@ -15,16 +15,22 @@ export class OvertimeReportComponent implements OnInit {
     this.overtime = new Overtime(new Date(Date.now()), 1);
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onSave() {
-    this.overtimeService.reportOvertime(this.overtime)
-    .subscribe(_ => {
-      this.location.back();
-    }, err => {
-      console.log(err);
-    });
+    this.reportOvertime(this.overtime);
   }
 
+  onReduce() {
+    this.reportOvertime(this.overtime.withNegativeHours());
+  }
+
+  reportOvertime(overtime: Overtime) {
+    this.overtimeService.reportOvertime(overtime)
+      .subscribe(_ => {
+        this.location.back();
+      }, err => {
+        console.log(err);
+      });
+  }
 }

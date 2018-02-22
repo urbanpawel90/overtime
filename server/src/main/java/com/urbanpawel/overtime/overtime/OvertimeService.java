@@ -60,8 +60,8 @@ public class OvertimeService {
         }
 
         public void save() {
-            if (hours.compareTo(BigDecimal.ZERO) <= 0) {
-                throw new InvalidParameterException("Can't report zero or negative hours!");
+            if (hours.compareTo(BigDecimal.ZERO) == 0) {
+                throw new InvalidParameterException("Can't report zero hours!");
             }
             OvertimeService.this.save(this);
         }

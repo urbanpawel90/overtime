@@ -11,12 +11,13 @@
         <div class="field">
           <label class="label">Hours</label>
           <div class="control">
-            <input type="number" class="input" placeholder="Hours" [(ngModel)]="overtime.hours" />
+            <input type="number" class="input" placeholder="Hours" [(ngModel)]="overtime.hours" step="0.5" min="0.5" max="24" required />
           </div>
         </div>
         <div class="field">
           <div class="control">
-            <a class="button is-success" (click)="onSave()">Save</a>
+            <a class="button is-danger" (click)="onSave()">Report</a>
+            <a class="button is-success" (click)="onReduce()">Reduce</a>
           </div>
         </div>
       </div>
