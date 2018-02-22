@@ -10,8 +10,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class DateTimeServiceTest {
-    private DateTimeService dateTimeService = new FakeDateTimeService(
-            LocalDateTime.of(2018, Month.FEBRUARY, 14, 14, 0));
+    private DateTimeService dateTimeService = FakeDateTimeService.fake2018Valentines2pm();
 
     @Test
     public void test_14thFebAnd16thFebOf2018_areInTheSameWeek() {

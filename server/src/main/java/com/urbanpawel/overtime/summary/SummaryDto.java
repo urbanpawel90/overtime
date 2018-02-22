@@ -5,6 +5,7 @@ import com.google.auto.value.AutoValue;
 import com.urbanpawel.overtime.DateTimeService;
 
 import java.math.BigDecimal;
+import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 @AutoValue
@@ -17,11 +18,11 @@ abstract class SummaryDto {
         return create(BigDecimal.ZERO, BigDecimal.ZERO, BigDecimal.ZERO);
     }
 
-    private static BigDecimal incrementConditionally(BigDecimal value, BooleanSupplier test) {
-        if (test.getAsBoolean()) {
-            return value.add(BigDecimal.ONE);
-        }
-        return value;
+    private static BigDecimal sumConditionally(BigDecimal lhs, BigDecimal rhs, BooleanSupplier test) {
+        return Optional.of(lhs)
+                .filter(__ -> test.getAsBoolean())
+                .map(current -> current.add(rhs))
+                .orElse(lhs);
     }
 
     @JsonProperty("total")
@@ -35,8 +36,8 @@ abstract class SummaryDto {
 
     public SummaryDto applyItem(DateTimeService dateTimeService, SummaryItem item) {
         return create(total().add(item.hours),
-                incrementConditionally(week(), () -> dateTimeService.isCurrentWeek(item.date)),
-                incrementConditionally(month(), () -> dateTimeService.isCurrentMonth(item.date)));
+                sumConditionally(week(), item.hours, () -> dateTimeService.isCurrentWeek(item.date)),
+                sumConditionally(month(), item.hours, () -> dateTimeService.isCurrentMonth(item.date)));
     }
 
     public SummaryDto combine(SummaryDto second) {

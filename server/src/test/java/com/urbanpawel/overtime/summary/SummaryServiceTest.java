@@ -25,8 +25,7 @@ public class SummaryServiceTest {
     private SummaryService summaryService;
     @Mock
     private OvertimeByDateRepository mockOvertimeRepository;
-    private DateTimeService dateTimeService = new FakeDateTimeService(
-            LocalDateTime.of(2018, Month.FEBRUARY, 14, 14, 0));
+    private DateTimeService dateTimeService = FakeDateTimeService.fake2018Valentines2pm();
 
     @Before
     public void setUp() {
