@@ -25,7 +25,7 @@ class OvertimeService {
     }
 
     @Transactional
-    private void save(ReportOvertimeSpecification specification) {
+    protected void save(ReportOvertimeSpecification specification) {
         OvertimeSummary specSummary = specification.toSummary();
         repository.saveSummary(repository.summaryFor(specification.date)
                 .map(found -> found.apply(specSummary))
