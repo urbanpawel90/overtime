@@ -1,6 +1,7 @@
 package com.urbanpawel.overtime.overtime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ class OvertimeEndpoint {
     @PostMapping
     public ResponseEntity reportOvertime(@RequestBody ReportOvertimeDto request) {
         overtimeService.forDate(request.date()).hours(request.hours()).save();
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping
