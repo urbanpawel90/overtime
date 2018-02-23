@@ -2,6 +2,8 @@ package com.urbanpawel.overtime.overtime;
 
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,14 +17,11 @@ interface JpaOvertimeRepository extends OvertimeRepository, JpaRepository<Overti
     }
 
     @Override
-    default Optional<OvertimeSummary> summaryFor(LocalDate date) {
-        return Optional.ofNullable(findOneByDate(date));
-    }
+    @Query("SELECT summary FROM OvertimeSummary summary WHERE date = :date")
+    Optional<OvertimeSummary> summaryFor(@Param("date") LocalDate date);
 
     @Override
     default List<OvertimeSummary> allSummaries() {
         return findAll(new Sort(Sort.Direction.DESC, "date"));
     }
-
-    OvertimeSummary findOneByDate(LocalDate date);
 }
