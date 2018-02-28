@@ -19,7 +19,7 @@ class OvertimeEndpoint {
 
     @PostMapping
     public ResponseEntity reportOvertime(@RequestBody ReportOvertimeDto request) {
-        overtimeService.forDate(request.date()).hours(request.hours()).save();
+        overtimeService.forDate(request.getDate()).hours(request.getHours()).save();
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
