@@ -10,10 +10,17 @@
           </a>
         </h4>
         <table class="table">
+          <thead>
+          <tr>
+            <th>Amount</th>
+            <th>Reported</th>
+          </tr>
+          </thead>
           <tbody>
-            <tr *ngFor="let change of overtime.changes">
-              <td>{{change.amount}}h</td>
-            </tr>
+          <tr *ngFor="let change of overtime.changes">
+            <td><strong>{{change.amount}}h</strong></td>
+            <td>{{change.when | date: 'yyyy-MM-dd / hh:mm'}}</td>
+          </tr>
           </tbody>
         </table>
       </div>
