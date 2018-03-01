@@ -10,7 +10,7 @@
 * Spring Framework 4
 * Flyway for DB provisioning and schema migrations
 * Gradle as a build system
-* AutoValue for generating boilerplate code
+* Lombok for generating boilerplate code
 * Angular5 for front-end
 * Bulma CSS
 
