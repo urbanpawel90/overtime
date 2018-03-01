@@ -14,12 +14,14 @@
           <tr>
             <th>Amount</th>
             <th>Reported</th>
+            <th>Comment</th>
           </tr>
           </thead>
           <tbody>
           <tr *ngFor="let change of overtime.changes">
             <td><strong>{{change.amount}}h</strong></td>
             <td>{{change.when | date: 'yyyy-MM-dd / hh:mm'}}</td>
+            <td>{{change.comment || '-'}}</td>
           </tr>
           </tbody>
         </table>

@@ -27,18 +27,18 @@ public class OvertimeServiceTest {
 
     @Test
     public void test_addedEntriesAreSummed() {
-        overtimeService.forDate(LocalDate.now()).hours(new BigDecimal("2.5")).save();
-        overtimeService.forDate(LocalDate.now()).hours(1).save();
+        overtimeService.reportForDate(LocalDate.now()).hours(new BigDecimal("2.5")).save();
+        overtimeService.reportForDate(LocalDate.now()).hours(1).save();
 
-        assertEquals(BigDecimal.valueOf(3.5), overtimeService.summaryFor(LocalDate.now()).getHours());
+        assertEquals(BigDecimal.valueOf(3.5), overtimeService.getSummary(LocalDate.now()).getHours());
     }
 
     @Test
     public void test_changeLogContainsAllOperations() {
-        overtimeService.forDate(LocalDate.now()).hours(1).save();
-        overtimeService.forDate(LocalDate.now()).hours(new BigDecimal("0.5")).save();
+        overtimeService.reportForDate(LocalDate.now()).hours(1).save();
+        overtimeService.reportForDate(LocalDate.now()).hours(new BigDecimal("0.5")).save();
 
-        OvertimeSummary summary = overtimeService.summaryFor(LocalDate.now());
+        OvertimeSummary summary = overtimeService.getSummary(LocalDate.now());
         assertEquals(2, summary.getChanges().size());
         assertEquals(BigDecimal.valueOf(0.5), summary.getChanges().get(0).getAmount());
     }
@@ -48,6 +48,14 @@ public class OvertimeServiceTest {
         exceptionsAssert.expect(InvalidParameterException.class);
         exceptionsAssert.expectMessage("Can't report zero hours!");
 
-        overtimeService.forDate(LocalDate.now()).save();
+        overtimeService.reportForDate(LocalDate.now()).save();
+    }
+
+    @Test
+    public void test_reportWithComment() {
+        overtimeService.reportForDate(LocalDate.now()).hours(1).comment("I'm testing overtime comments").save();
+
+        assertEquals("I'm testing overtime comments", overtimeService.getSummary(LocalDate.now())
+                .getChanges().get(0).getComment());
     }
 }

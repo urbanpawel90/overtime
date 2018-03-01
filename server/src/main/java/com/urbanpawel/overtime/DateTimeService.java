@@ -8,7 +8,7 @@ import java.time.temporal.IsoFields;
 
 @Component
 public class DateTimeService {
-    LocalDateTime now() {
+    public LocalDateTime now() {
         return LocalDateTime.now();
     }
 

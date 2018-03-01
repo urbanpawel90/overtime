@@ -19,8 +19,8 @@ export class OvertimeService {
     return this.http.get<Summary>(OvertimeService.summaryUrl);
   }
 
-  reportOvertime(overtime: Overtime): Observable<any> {
-    return this.http.post<any>(OvertimeService.overtimeUrl, JSON.stringify(overtime), {
+  reportOvertime(overtime: Overtime, comment: string = null): Observable<any> {
+    return this.http.post<any>(OvertimeService.overtimeUrl, JSON.stringify({...overtime, comment}), {
       headers: {
         "Content-Type": "application/json"
       }

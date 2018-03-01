@@ -19,17 +19,18 @@ import java.util.stream.Stream;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Builder
 @Table(name = "overtime")
 public final class OvertimeSummary {
     @Id
     @GeneratedValue
-    Integer id;
+    private Integer id;
     @Column(name = "`date`", nullable = false, unique = true)
-    LocalDate date;
+    private LocalDate date;
     @Column(nullable = false)
-    BigDecimal hours;
+    private BigDecimal hours;
     @ElementCollection
-    List<Change> changes;
+    private List<Change> changes;
 
     @Tolerate
     private OvertimeSummary(LocalDate date) {
@@ -58,8 +59,9 @@ public final class OvertimeSummary {
     @AllArgsConstructor
     @Embeddable
     static class Change {
-        BigDecimal amount;
+        private BigDecimal amount;
         @Column(name = "`when`")
-        LocalDateTime when;
+        private LocalDateTime when;
+        private String comment;
     }
 }

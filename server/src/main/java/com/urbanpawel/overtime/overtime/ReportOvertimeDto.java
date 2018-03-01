@@ -1,6 +1,9 @@
 package com.urbanpawel.overtime.overtime;
 
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,6 +12,7 @@ import java.time.LocalDate;
 @Setter(AccessLevel.PRIVATE)
 @NoArgsConstructor
 final class ReportOvertimeDto {
-    LocalDate date;
-    BigDecimal hours;
+    private LocalDate date;
+    private BigDecimal hours;
+    private String comment;
 }

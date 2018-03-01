@@ -20,7 +20,7 @@ class OvertimeService {
         this.repository = repository;
     }
 
-    public ReportOvertimeSpecification forDate(LocalDate date) {
+    public ReportOvertimeSpecification reportForDate(LocalDate date) {
         return new ReportOvertimeSpecification(date, BigDecimal.ZERO);
     }
 
@@ -33,22 +33,28 @@ class OvertimeService {
         );
     }
 
-    public OvertimeSummary summaryFor(LocalDate date) {
+    public OvertimeSummary getSummary(LocalDate date) {
         return repository.summaryFor(date)
                 .orElse(OvertimeSummary.emptySummary(date));
     }
 
-    public List<OvertimeSummary> summaries() {
+    public List<OvertimeSummary> getSummaries() {
         return repository.allSummaries();
     }
 
     public class ReportOvertimeSpecification {
         private final LocalDate date;
         private final BigDecimal hours;
+        private final String comment;
 
         private ReportOvertimeSpecification(LocalDate date, BigDecimal hours) {
+            this(date, hours, null);
+        }
+
+        private ReportOvertimeSpecification(LocalDate date, BigDecimal hours, String comment) {
             this.date = date;
             this.hours = hours;
+            this.comment = comment;
         }
 
         public ReportOvertimeSpecification hours(int hours) {
@@ -68,7 +74,11 @@ class OvertimeService {
 
         private OvertimeSummary toSummary() {
             return new OvertimeSummary(hours, date,
-                    Collections.singletonList(new OvertimeSummary.Change(hours, LocalDateTime.now())));
+                    Collections.singletonList(new OvertimeSummary.Change(hours, LocalDateTime.now(), comment)));
+        }
+
+        public ReportOvertimeSpecification comment(String comment) {
+            return new ReportOvertimeSpecification(date, hours, comment);
         }
     }
 }

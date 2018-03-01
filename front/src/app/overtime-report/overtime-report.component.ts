@@ -10,6 +10,7 @@ import { OvertimeService } from '../overtime.service';
 })
 export class OvertimeReportComponent {
   overtime: Overtime;
+  comment: string;
 
   constructor(private location: Location, private overtimeService: OvertimeService) {
     this.overtime = new Overtime(new Date(Date.now()), 1);
@@ -24,7 +25,7 @@ export class OvertimeReportComponent {
   }
 
   reportOvertime(overtime: Overtime) {
-    this.overtimeService.reportOvertime(overtime)
+    this.overtimeService.reportOvertime(overtime, this.comment)
       .subscribe(_ => {
         this.location.back();
       }, err => {

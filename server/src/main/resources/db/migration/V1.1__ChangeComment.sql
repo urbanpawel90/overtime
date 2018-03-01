@@ -1,0 +1,1 @@
+ALTER TABLE overtime_summary_changes ADD COLUMN comment VARCHAR(500);

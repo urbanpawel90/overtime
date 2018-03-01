@@ -1,7 +1,7 @@
 export class OvertimeChange {
   when: Date;
 
-  constructor(public amount: number, when: string) {
+  constructor(public amount: number, when: string, public comment: string) {
     this.when = new Date(when);
   }
 }
