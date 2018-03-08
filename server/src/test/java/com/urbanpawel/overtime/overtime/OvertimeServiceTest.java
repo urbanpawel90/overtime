@@ -27,7 +27,7 @@ public class OvertimeServiceTest {
     private OvertimeService overtimeService;
     @Mock
     private OvertimeRepository mockOvertimeRepository;
-    private Map<Integer, OvertimeSummary> stubSummaryStore = new HashMap<>();
+    private final Map<Integer, OvertimeSummary> stubSummaryStore = new HashMap<>();
 
     @Before
     public void setUp() {
@@ -51,16 +51,16 @@ public class OvertimeServiceTest {
 
     @Test
     public void test_addedEntriesAreSummed() {
-        overtimeService.reportForDate(LocalDate.now()).hours(new BigDecimal("2.5")).save();
-        overtimeService.reportForDate(LocalDate.now()).hours(1).save();
+        overtimeService.save(new ReportOvertimeDto(LocalDate.now(), new BigDecimal("2.5")));
+        overtimeService.save(new ReportOvertimeDto(LocalDate.now(), BigDecimal.ONE));
 
         assertEquals(BigDecimal.valueOf(3.5), overtimeService.getSummary(LocalDate.now()).getHours());
     }
 
     @Test
     public void test_changeLogContainsAllOperations() {
-        overtimeService.reportForDate(LocalDate.now()).hours(1).save();
-        overtimeService.reportForDate(LocalDate.now()).hours(new BigDecimal("0.5")).save();
+        overtimeService.save(new ReportOvertimeDto(LocalDate.now(), BigDecimal.ONE));
+        overtimeService.save(new ReportOvertimeDto(LocalDate.now(), new BigDecimal("0.5")));
 
         OvertimeSummary summary = overtimeService.getSummary(LocalDate.now());
         assertEquals(2, summary.getChanges().size());
@@ -72,12 +72,12 @@ public class OvertimeServiceTest {
         exceptionsAssert.expect(InvalidParameterException.class);
         exceptionsAssert.expectMessage("Can't report zero hours!");
 
-        overtimeService.reportForDate(LocalDate.now()).save();
+        overtimeService.save(new ReportOvertimeDto(LocalDate.now(), BigDecimal.ZERO));
     }
 
     @Test
     public void test_reportWithComment() {
-        overtimeService.reportForDate(LocalDate.now()).hours(1).comment("I'm testing overtime comments").save();
+        overtimeService.save(new ReportOvertimeDto(LocalDate.now(), BigDecimal.ONE, "I'm testing overtime comments"));
 
         assertEquals("I'm testing overtime comments", overtimeService.getSummary(LocalDate.now())
                 .getChanges().get(0).getComment());

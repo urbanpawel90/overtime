@@ -34,21 +34,17 @@ public final class OvertimeSummary {
 
     @Tolerate
     private OvertimeSummary(LocalDate date) {
-        this(BigDecimal.ZERO, date, Collections.emptyList());
-    }
-
-    @Tolerate
-    OvertimeSummary(BigDecimal hours, LocalDate date, List<Change> changes) {
-        this(null, date, hours, changes);
+        this(null, date, BigDecimal.ZERO, Collections.emptyList());
     }
 
     public static OvertimeSummary emptySummary(LocalDate date) {
         return new OvertimeSummary(date);
     }
 
-    public OvertimeSummary apply(OvertimeSummary change) {
+    public OvertimeSummary apply(ReportOvertimeDto change) {
         return new OvertimeSummary(id, date, hours.add(change.getHours()),
-                Stream.concat(change.changes.stream(), changes.stream())
+                Stream.concat(Stream.of(new Change(change.getHours(), LocalDateTime.now(), change.getComment())),
+                        changes.stream())
                         .sorted(Comparator.comparing(Change::getWhen).reversed())
                         .collect(Collectors.toList()));
     }
