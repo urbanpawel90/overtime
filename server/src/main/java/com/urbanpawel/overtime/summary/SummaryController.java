@@ -7,11 +7,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/summary")
-class SummaryEndpoint {
+class SummaryController {
     private final SummaryService summaryService;
 
     @Autowired
-    SummaryEndpoint(SummaryService summaryService) {
+    SummaryController(SummaryService summaryService) {
         this.summaryService = summaryService;
     }
 

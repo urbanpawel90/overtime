@@ -9,11 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/overtime")
-class OvertimeEndpoint {
+class OvertimeController {
     private final OvertimeService overtimeService;
 
     @Autowired
-    public OvertimeEndpoint(OvertimeService overtimeService) {
+    public OvertimeController(OvertimeService overtimeService) {
         this.overtimeService = overtimeService;
     }
 
