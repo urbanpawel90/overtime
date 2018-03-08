@@ -28,10 +28,10 @@ class SummaryDto {
                 .orElse(lhs);
     }
 
-    public SummaryDto applyItem(DateTimeUtils dateTimeUtils, SummaryItem item) {
+    public SummaryDto applyItem(SummaryItem item) {
         return create(total.add(item.hours),
-                sumConditionally(week, item.hours, () -> dateTimeUtils.isCurrentWeek(item.date)),
-                sumConditionally(month, item.hours, () -> dateTimeUtils.isCurrentMonth(item.date)));
+                sumConditionally(week, item.hours, () -> DateTimeUtils.isCurrentWeek(item.date)),
+                sumConditionally(month, item.hours, () -> DateTimeUtils.isCurrentMonth(item.date)));
     }
 
     public SummaryDto combine(SummaryDto second) {
