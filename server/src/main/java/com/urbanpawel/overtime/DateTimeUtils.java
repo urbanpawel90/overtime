@@ -6,8 +6,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.IsoFields;
 
+// TODO: DateTimeService statycznie i tool do mockowania metod statycznych
 @Component
-public class DateTimeService {
+public class DateTimeUtils {
     public LocalDateTime now() {
         return LocalDateTime.now();
     }

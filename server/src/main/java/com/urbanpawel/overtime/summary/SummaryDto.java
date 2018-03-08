@@ -1,7 +1,7 @@
 package com.urbanpawel.overtime.summary;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.urbanpawel.overtime.DateTimeService;
+import com.urbanpawel.overtime.DateTimeUtils;
 import lombok.Value;
 
 import java.math.BigDecimal;
@@ -28,10 +28,10 @@ class SummaryDto {
                 .orElse(lhs);
     }
 
-    public SummaryDto applyItem(DateTimeService dateTimeService, SummaryItem item) {
+    public SummaryDto applyItem(DateTimeUtils dateTimeUtils, SummaryItem item) {
         return create(total.add(item.hours),
-                sumConditionally(week, item.hours, () -> dateTimeService.isCurrentWeek(item.date)),
-                sumConditionally(month, item.hours, () -> dateTimeService.isCurrentMonth(item.date)));
+                sumConditionally(week, item.hours, () -> dateTimeUtils.isCurrentWeek(item.date)),
+                sumConditionally(month, item.hours, () -> dateTimeUtils.isCurrentMonth(item.date)));
     }
 
     public SummaryDto combine(SummaryDto second) {

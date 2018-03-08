@@ -1,7 +1,7 @@
 package com.urbanpawel.overtime.summary;
 
-import com.urbanpawel.overtime.DateTimeService;
-import com.urbanpawel.overtime.FakeDateTimeService;
+import com.urbanpawel.overtime.DateTimeUtils;
+import com.urbanpawel.overtime.FakeDateTimeUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -24,11 +24,11 @@ public class SummaryServiceTest {
     private SummaryService summaryService;
     @Mock
     private OvertimeByDateRepository mockOvertimeRepository;
-    private final DateTimeService dateTimeService = FakeDateTimeService.fake2018Valentines2pm();
+    private final DateTimeUtils dateTimeUtils = FakeDateTimeUtils.fake2018Valentines2pm();
 
     @Before
     public void setUp() {
-        summaryService = new SummaryService(mockOvertimeRepository, dateTimeService);
+        summaryService = new SummaryService(mockOvertimeRepository, dateTimeUtils);
     }
 
     private void mockSummaryItemSet(Set<SummaryItem> summaryItemSet) {

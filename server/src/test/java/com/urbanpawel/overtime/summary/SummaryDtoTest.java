@@ -1,7 +1,7 @@
 package com.urbanpawel.overtime.summary;
 
-import com.urbanpawel.overtime.DateTimeService;
-import com.urbanpawel.overtime.FakeDateTimeService;
+import com.urbanpawel.overtime.DateTimeUtils;
+import com.urbanpawel.overtime.FakeDateTimeUtils;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ import static java.math.BigDecimal.ZERO;
 import static org.junit.Assert.assertEquals;
 
 public class SummaryDtoTest {
-    private final DateTimeService fakeDateTime = FakeDateTimeService.fake2018Valentines2pm();
+    private final DateTimeUtils fakeDateTime = FakeDateTimeUtils.fake2018Valentines2pm();
 
     @Test
     public void test_emptySummaryCountsAreZeros() {
