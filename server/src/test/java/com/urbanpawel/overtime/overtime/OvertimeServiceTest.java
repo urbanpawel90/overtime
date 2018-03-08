@@ -5,13 +5,19 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.math.BigDecimal;
 import java.security.InvalidParameterException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OvertimeServiceTest {
@@ -19,10 +25,28 @@ public class OvertimeServiceTest {
     public ExpectedException exceptionsAssert = ExpectedException.none();
 
     private OvertimeService overtimeService;
+    @Mock
+    private OvertimeRepository mockOvertimeRepository;
+    private Map<Integer, OvertimeSummary> stubSummaryStore = new HashMap<>();
 
     @Before
     public void setUp() {
-        overtimeService = new OvertimeService(new StubOvertimeRepository());
+        setUpMockRepository();
+        stubSummaryStore.clear();
+        overtimeService = new OvertimeService(mockOvertimeRepository);
+    }
+
+    private void setUpMockRepository() {
+        when(mockOvertimeRepository.save(any(OvertimeSummary.class))).thenAnswer(invocation -> {
+            OvertimeSummary savedSummary = invocation.getArgumentAt(0, OvertimeSummary.class);
+            stubSummaryStore.put(savedSummary.getId(), savedSummary);
+            return savedSummary;
+        });
+        when(mockOvertimeRepository.allSummaries()).thenReturn(new ArrayList<>(stubSummaryStore.values()));
+        when(mockOvertimeRepository.summaryFor(any(LocalDate.class))).thenAnswer(invocation -> stubSummaryStore.values()
+                .stream()
+                .filter(el -> el.getDate().equals(invocation.getArgumentAt(0, LocalDate.class))).findFirst()
+        );
     }
 
     @Test
