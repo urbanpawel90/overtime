@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 @AllArgsConstructor
 @Entity
 @Builder
-@Table(name = "overtime")
+@Table(name = "overtime_summary")
 public final class OvertimeSummary {
     @Id
     @GeneratedValue
