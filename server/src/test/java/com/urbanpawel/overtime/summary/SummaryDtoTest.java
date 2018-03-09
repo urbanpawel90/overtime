@@ -1,32 +1,16 @@
 package com.urbanpawel.overtime.summary;
 
-import com.urbanpawel.overtime.DateTimeUtils;
-import org.junit.Before;
+import com.urbanpawel.overtime.test.BasicTestSuite;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
 
 import static java.math.BigDecimal.ZERO;
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(DateTimeUtils.class)
-public class SummaryDtoTest {
-    @Before
-    public void setUp() {
-        PowerMockito.spy(DateTimeUtils.class);
-        when(DateTimeUtils.now())
-                .thenReturn(LocalDateTime.of(2018, Month.FEBRUARY, 14, 14, 0));
-    }
-
+public class SummaryDtoTest extends BasicTestSuite {
     @Test
     public void test_emptySummaryCountsAreZeros() {
         assertEquals(SummaryDto.empty(), SummaryDto.create(ZERO, ZERO, ZERO));

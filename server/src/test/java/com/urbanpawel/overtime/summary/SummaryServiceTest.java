@@ -1,19 +1,14 @@
 package com.urbanpawel.overtime.summary;
 
-import com.urbanpawel.overtime.DateTimeUtils;
+import com.urbanpawel.overtime.test.BasicTestSuite;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.powermock.api.mockito.PowerMockito;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Collections;
 import java.util.Set;
@@ -23,24 +18,15 @@ import java.util.stream.Stream;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
-@RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(MockitoJUnitRunner.class)
-@PrepareForTest(DateTimeUtils.class)
-public class SummaryServiceTest {
+public class SummaryServiceTest extends BasicTestSuite {
     private SummaryService summaryService;
     @Mock
     private OvertimeByDateRepository mockOvertimeRepository;
 
     @Before
     public void setUp() {
-        PowerMockito.spy(DateTimeUtils.class);
-        when(DateTimeUtils.now())
-                .thenReturn(LocalDateTime.of(2018, Month.FEBRUARY, 14, 14, 0));
         summaryService = new SummaryService(mockOvertimeRepository);
-    }
-
-    private void mockSummaryItemSet(Set<SummaryItem> summaryItemSet) {
-        when(mockOvertimeRepository.getOvertimesGroupedByDate()).thenReturn(summaryItemSet);
     }
 
     @Test
@@ -48,6 +34,10 @@ public class SummaryServiceTest {
         mockSummaryItemSet(Collections.emptySet());
 
         assertEquals("SummaryDto(0,0,0)", summaryService.countSummary(), SummaryDto.empty());
+    }
+
+    private void mockSummaryItemSet(Set<SummaryItem> summaryItemSet) {
+        when(mockOvertimeRepository.getOvertimesGroupedByDate()).thenReturn(summaryItemSet);
     }
 
     @Test
