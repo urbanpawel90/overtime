@@ -5,8 +5,7 @@ import { OvertimeService } from '../overtime.service';
 
 @Component({
   selector: 'app-overtime-report',
-  templateUrl: './overtime-report.component.html',
-  styleUrls: ['./overtime-report.component.css']
+  templateUrl: './overtime-report.component.html'
 })
 export class OvertimeReportComponent {
   overtime: Overtime;

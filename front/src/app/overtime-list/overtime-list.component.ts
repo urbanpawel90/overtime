@@ -8,8 +8,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 
 @Component({
   selector: 'overtime-list',
-  templateUrl: './overtime-list.component.html',
-  styleUrls: ['./overtime-list.component.css']
+  templateUrl: './overtime-list.component.html'
 })
 export class OvertimeListComponent implements OnInit {
   overtimes: Overtime[];
