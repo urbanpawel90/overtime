@@ -2,8 +2,6 @@
 #### Spring / Angular web application for managing overtime in your workplace
 
 ## Tools used
-* IntelliJ IDEA Community for backend development
-* Visual Studio Code for frontend development
 * Docker for easy setup of local database
 * MySQL as a database
 * Spring Boot
